@@ -81,10 +81,13 @@
     // Kategorilerin sırasıyla dönmesini sağlamak
     let currentCategoryIndex = 0;
     let rotationInterval;
+    let categorySelected = false;
 
     function startCategoryRotation() {
-      // Başlangıç cümlesini gösterelim
-      document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${startingSentence}"</p>`;
+      if (!categorySelected) {
+        // Başlangıç cümlesini gösterelim
+        document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${startingSentence}"</p>`;
+      }
 
       // Kategoriyi döndürmeye başla
       rotationInterval = setInterval(() => {
@@ -97,10 +100,16 @@
         clearInterval(rotationInterval);
         const randomCategoryIndex = Math.floor(Math.random() * categories.length);
         document.getElementById("category-display").innerText = `Seçilen Kategori: ${categories[randomCategoryIndex]}`;
+        categorySelected = true;
       }, Math.random() * 1000 + 2000); // 2-3 saniye arasında rastgele bir süre sonra duracak
     }
 
     function addUserSentence() {
+      if (!categorySelected) {
+        alert("Lütfen önce bir kategori seçin.");
+        return;
+      }
+
       const userSentence = document.getElementById("user-sentence").value;
 
       if (userSentence.trim() !== "") {
@@ -112,7 +121,7 @@
         storyDiv.appendChild(sentenceParagraph);
 
         // Cümle yazma alanını temizle
-        document.getElementById("user-sentence").value = "";  
+        document.getElementById("user-sentence").value = "";
       } else {
         alert("Lütfen bir cümle girin.");
       }
