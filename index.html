@@ -17,16 +17,6 @@
       margin-top: 20px;
     }
 
-    .category {
-      margin: 10px;
-      padding: 15px 30px;
-      background-color: #f1f1f1;
-      border-radius: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
     .category-display {
       font-size: 24px;
       font-weight: bold;
@@ -55,16 +45,11 @@
       cursor: pointer;
       margin-top: 20px;
     }
-
   </style>
 </head>
 <body>
 
   <h1>Hikaye Oyunu</h1>
-
-  <div class="category-container" id="category-container">
-    <!-- Kategoriler burada yer alacak -->
-  </div>
 
   <button class="button" onclick="startCategoryRotation()">Kategori Seç</button>
 
@@ -81,18 +66,7 @@
     const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Gizemli", "Mutlu", "Üzgün", "Korkmuş"];
     const startingSentence = "Bir sabah uyandığında, dünyada her şeyin değişmeye başladığını hissetti.";
 
-    // Kategorileri ekleyelim
-    function createCategories() {
-      const categoryContainer = document.getElementById("category-container");
-      categories.forEach(category => {
-        const categoryElement = document.createElement("div");
-        categoryElement.textContent = category;
-        categoryElement.classList.add("category");
-        categoryContainer.appendChild(categoryElement);
-      });
-    }
-
-    // Kategorileri sırayla gösterme
+    // Kategorilerin sırasıyla dönmesini sağlamak
     let currentCategoryIndex = 0;
     let rotationInterval;
 
@@ -104,7 +78,7 @@
       rotationInterval = setInterval(() => {
         document.getElementById("category-display").innerText = categories[currentCategoryIndex];
         currentCategoryIndex = (currentCategoryIndex + 1) % categories.length;
-      }, 500); // Her yarım saniyede bir kategori değişecek
+      }, 300); // Her 0.3 saniyede bir kategori değişecek
 
       // Duracak rastgele bir nokta
       setTimeout(() => {
@@ -128,9 +102,6 @@
         alert("Lütfen bir cümle girin.");
       }
     }
-
-    window.onload = createCategories;
-
   </script>
 
 </body>
