@@ -76,9 +76,16 @@
 
   <script>
     const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Gizemli", "Mutlu", "Üzgün", "Korkmuş"];
-    const subjects = ["Bir bilim insanı", "Bir filozof", "Bir astronot", "Bir müzisyen", "Bir yazan", "Bir ressam", "Bir sokak sanatçısı", "Bir oyun tasarımcısı"];
-    const verbs = ["keşfetti", "gördü", "düşledi", "yarattı", "yazdı", "gitti", "gizledi", "paylaştı"];
-    const objects = ["yeni bir dünya", "büyük bir sır", "gizli bir hazine", "sonsuz bir evren", "bütün bir toplum", "eski bir harita", "bir zaman makinesi", "derin bir okyanus"];
+    const startingSentences = [
+      "Bir yıldız kaydı geceye, ardında bilinmeyen bir arzu bırakarak.",
+      "Bir yıldız kaydı karanlıkta, yeni bir dünyanın kapılarını aralayarak.",
+      "Zamanın bir anı, kaybolmuş bir hatıra gibi geri döndü, her şey silikleşirken.",
+      "Zamanın bir anı, gözlerimde bir düşe dönüştü, kaybolan bir geçmişin izlerini taşıyarak.",
+      "Bir rüzgar geçti, denizin sesini taşıyan bir fısıltı gibi.",
+      "Bir rüzgar, geçmişin en derin sırlarını kulağıma fısıldadı, yüreğime dokundu.",
+      "Bir sessizlik, dünyayı içine alarak derinlere doğru yol aldı.",
+      "Bir sessizlik, en çok arzuladığım soruları dilime getirmeden önce, yüreğimi kırdı."
+    ];
 
     let currentCategoryIndex = 0;
     let rotationInterval;
@@ -86,10 +93,7 @@
 
     // Rastgele bir başlangıç cümlesi oluştur
     function getRandomStartingSentence() {
-      const subject = subjects[Math.floor(Math.random() * subjects.length)];
-      const verb = verbs[Math.floor(Math.random() * verbs.length)];
-      const object = objects[Math.floor(Math.random() * objects.length)];
-      return `${subject} ${verb} ve ${object} keşfetti.`;
+      return startingSentences[Math.floor(Math.random() * startingSentences.length)];
     }
 
     function startCategoryRotation() {
