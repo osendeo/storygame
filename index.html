@@ -10,6 +10,7 @@
     .category { font-size: 24px; font-weight: bold; margin-top: 20px; }
     .story { margin-top: 30px; font-size: 20px; }
     .input-area { margin-top: 20px; }
+    #user-sentence { width: 300px; font-size: 16px; padding: 10px; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -24,7 +25,7 @@
   <div class="input-area">
     <label for="user-sentence">Your Sentence: </label>
     <input type="text" id="user-sentence" placeholder="Write your sentence here..." />
-    <button onclick="addUserSentence()">Add Sentence</button>
+    <button class="button" onclick="addUserSentence()">Add Sentence</button>
   </div>
 
   <script>
