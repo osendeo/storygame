@@ -8,18 +8,26 @@
     body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
 
     /* Çark stili */
+    .wheel-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: auto;
+    }
+
     .wheel {
-      width: 300px;
-      height: 300px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       border: 10px solid #333;
-      position: relative;
-      margin: 20px auto;
+      position: absolute;
+      top: 0;
+      left: 0;
       background: conic-gradient(
-        #ff0000 0% 25%, #00ff00 25% 50%, #0000ff 50% 75%, #ffff00 75% 100%
+        #ff0000 0% 20%, #00ff00 20% 40%, #0000ff 40% 60%, #ffff00 60% 80%, #ff00ff 80% 100%
       );
       transform-origin: 50% 50%;
-      transition: transform 2s ease-out;
+      transition: transform 3s ease-out;
     }
 
     /* Çark üzerindeki kategorilerin yerleşimi */
@@ -29,15 +37,17 @@
       font-weight: bold;
       color: white;
       text-align: center;
-      width: 100%;
-      top: 10%;  /* Kategori yüksekliğini ayarlamak için */
+      transform: translateX(-50%);
     }
 
-    .category:nth-child(1) { left: 10%; }
-    .category:nth-child(2) { left: 30%; }
-    .category:nth-child(3) { left: 50%; }
-    .category:nth-child(4) { left: 70%; }
-    .category:nth-child(5) { left: 90%; }
+    .category:nth-child(1) { top: 10%; left: 25%; }
+    .category:nth-child(2) { top: 20%; left: 75%; }
+    .category:nth-child(3) { top: 50%; left: 90%; }
+    .category:nth-child(4) { top: 80%; left: 75%; }
+    .category:nth-child(5) { top: 90%; left: 25%; }
+    .category:nth-child(6) { top: 80%; left: 5%; }
+    .category:nth-child(7) { top: 50%; left: 0%; }
+    .category:nth-child(8) { top: 20%; left: 5%; }
 
     /* Çarkın üzerindeki metinler */
     .wheel-text {
@@ -72,9 +82,15 @@
   <h1>Hikaye Oyunu</h1>
 
   <!-- Çark -->
-  <div class="wheel" id="wheel">
-    <div class="wheel-text">Çarkı Çevir!</div>
-    <div id="category-wheel" class="category"></div> <!-- Kategoriler buraya gelecek -->
+  <div class="wheel-container">
+    <div class="wheel" id="wheel">
+      <div class="wheel-text">Çarkı Çevir!</div>
+    </div>
+
+    <!-- Kategoriler -->
+    <div id="categories" class="category">
+      <!-- Kategoriler buraya yerleştirilecek -->
+    </div>
   </div>
 
   <!-- Buton -->
@@ -92,7 +108,7 @@
   </div>
 
   <script>
-    const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı"];
+    const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Gizemli", "Mutlu", "Üzgün", "Korkmuş"];
     const startingSentences = [
       "O an her şey değişti, bir şeylerin başlaması gerekiyordu.",
       "Gözleri önümdeki manzaraya odaklanmıştı, ama ne düşündüğünü anlayamıyordum.",
@@ -104,6 +120,18 @@
 
     let isFirstSpin = true; // Çark ilk kez döndürüldü mü diye kontrol eder
 
+    // Kategorileri çarkın üzerine yerleştirme
+    function createCategories() {
+      categories.forEach((category, index) => {
+        const categoryElement = document.createElement("div");
+        categoryElement.textContent = category;
+        categoryElement.classList.add("category");
+        const angle = (360 / categories.length) * index;
+        categoryElement.style.transform = `rotate(${angle}deg) translateY(-140px)`;
+        document.getElementById("categories").appendChild(categoryElement);
+      });
+    }
+
     function spinWheel() {
       // Çarkı döndürmek için rastgele bir açı belirleyelim
       const randomDeg = Math.floor(Math.random() * 360) + 3600;  // 3600 derece ve sonrasını döndürelim
@@ -111,10 +139,10 @@
 
       // Çarkın dönerken kategorilerin görünmemesi için süreyi ayarlayalım
       setTimeout(() => {
-        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-        document.getElementById("category-wheel").innerText = randomCategory;
-        document.getElementById("category-display").innerText = `Kategori: ${randomCategory}`;
-      }, 2000); // Çarkın dönüşü bitince kategori gösterilecek
+        const selectedCategoryIndex = Math.floor((randomDeg % 360) / (360 / categories.length));
+        const selectedCategory = categories[selectedCategoryIndex];
+        document.getElementById("category-display").innerText = `Kategori: ${selectedCategory}`;
+      }, 3000); // Çarkın dönüşü bitince kategori gösterilecek
 
       if (isFirstSpin) {
         // İlk tıklamada rastgele bir başlangıç cümlesi seçilir
@@ -145,6 +173,10 @@
         alert("Lütfen bir cümle girin.");
       }
     }
+
+    // Sayfa yüklendiğinde kategoriler oluşturulsun
+    window.onload = createCategories;
+
   </script>
 
 </body>
