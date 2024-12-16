@@ -9,13 +9,23 @@
     .button { padding: 10px 20px; font-size: 18px; cursor: pointer; margin-top: 20px; }
     .category { font-size: 24px; font-weight: bold; margin-top: 20px; }
     .story { margin-top: 30px; font-size: 20px; }
+    .input-area { margin-top: 20px; }
   </style>
 </head>
 <body>
   <h1>Story Game</h1>
   <button class="button" onclick="spinWheel()">Spin the Wheel</button>
-  <p class="category">Category: <span id="category"></span></p>
+
+  <!-- Display the Category and Starting Sentence -->
+  <div class="category" id="category"></div>
   <div class="story" id="story"></div>
+
+  <!-- Area for the player to write their sentence -->
+  <div class="input-area">
+    <label for="user-sentence">Your Sentence: </label>
+    <input type="text" id="user-sentence" placeholder="Write your sentence here..." />
+    <button onclick="addUserSentence()">Add Sentence</button>
+  </div>
 
   <script>
     const categories = ["Optimistic", "Pessimistic", "Confused", "Excited"];
@@ -26,23 +36,41 @@
       "The room was filled with a strange and eerie silence."
     ];
 
+    let isFirstSpin = true; // Track if the Spin button is clicked for the first time
+
     function spinWheel() {
-      // Randomly select a category
+      // Always show a category (no need to check first time)
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-      const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
+      document.getElementById("category").innerText = `Category: ${randomCategory}`;
 
-      // Get the element where we want to display the text
-      const storyDiv = document.getElementById("story");
+      if (isFirstSpin) {
+        // Randomly select a starting sentence for the first click
+        const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
+        document.getElementById("story").innerHTML = `<p><strong>Starting Sentence:</strong> "${randomSentence}"</p>`;
+        
+        // Set isFirstSpin to false so that it doesn't repeat on subsequent clicks
+        isFirstSpin = false;
+      }
+    }
 
-      // Create new paragraphs for the category and sentence
-      const categoryParagraph = document.createElement("p");
-      categoryParagraph.innerText = `Category: ${randomCategory}`;
-      const sentenceParagraph = document.createElement("p");
-      sentenceParagraph.innerText = `Starting Sentence: "${randomSentence}"`;
+    function addUserSentence() {
+      // Get the user's sentence from the input field
+      const userSentence = document.getElementById("user-sentence").value;
 
-      // Append the new paragraphs to the story section
-      storyDiv.appendChild(categoryParagraph);
-      storyDiv.appendChild(sentenceParagraph);
+      if (userSentence.trim() !== "") {
+        // Create a new paragraph element to display the user's sentence
+        const storyDiv = document.getElementById("story");
+        const sentenceParagraph = document.createElement("p");
+        sentenceParagraph.innerText = `"${userSentence}"`;
+
+        // Append the user's sentence to the story
+        storyDiv.appendChild(sentenceParagraph);
+
+        // Clear the input field for the next sentence
+        document.getElementById("user-sentence").value = "";
+      } else {
+        alert("Please enter a sentence before adding it.");
+      }
     }
   </script>
 </body>
