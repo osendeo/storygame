@@ -66,7 +66,7 @@
     <!-- Kategoriler burada yer alacak -->
   </div>
 
-  <button class="button" onclick="randomCategory()">Rastgele Kategori Seç</button>
+  <button class="button" onclick="startCategoryRotation()">Kategori Seç</button>
 
   <div class="category-display" id="category-display"></div>
   <div class="story" id="story"></div>
@@ -79,14 +79,7 @@
 
   <script>
     const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Gizemli", "Mutlu", "Üzgün", "Korkmuş"];
-    const startingSentences = [
-      "O an her şey değişti, bir şeylerin başlaması gerekiyordu.",
-      "Gözleri önümdeki manzaraya odaklanmıştı, ama ne düşündüğünü anlayamıyordum.",
-      "Bir adım attım ve geçmişimden gelen o korkunç sesler tekrar duyuldu.",
-      "Yavaşça adımlarımı atarken, bir anda her şey durdu ve sessizlik her tarafı sardı.",
-      "Dışarıdaki rüzgar o kadar şiddetliydi ki, her şeyin devrilmeye başlayacağını hissedebiliyordum.",
-      "Kalktım ve kapıyı açtım, ama dışarıda kimse yoktu, yalnızdım."
-    ];
+    const startingSentence = "Bir sabah uyandığında, dünyada her şeyin değişmeye başladığını hissetti.";
 
     // Kategorileri ekleyelim
     function createCategories() {
@@ -99,15 +92,26 @@
       });
     }
 
-    // Rastgele kategori seçme
-    function randomCategory() {
-      const randomIndex = Math.floor(Math.random() * categories.length);
-      const selectedCategory = categories[randomIndex];
-      document.getElementById("category-display").innerText = `Seçilen Kategori: ${selectedCategory}`;
+    // Kategorileri sırayla gösterme
+    let currentCategoryIndex = 0;
+    let rotationInterval;
 
-      // İlk cümleyi gösterelim
-      const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
-      document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${randomSentence}"</p>`;
+    function startCategoryRotation() {
+      // Başlangıç cümlesini gösterelim
+      document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${startingSentence}"</p>`;
+
+      // Kategoriyi döndürmeye başla
+      rotationInterval = setInterval(() => {
+        document.getElementById("category-display").innerText = categories[currentCategoryIndex];
+        currentCategoryIndex = (currentCategoryIndex + 1) % categories.length;
+      }, 500); // Her yarım saniyede bir kategori değişecek
+
+      // Duracak rastgele bir nokta
+      setTimeout(() => {
+        clearInterval(rotationInterval);
+        const randomCategoryIndex = Math.floor(Math.random() * categories.length);
+        document.getElementById("category-display").innerText = `Seçilen Kategori: ${categories[randomCategoryIndex]}`;
+      }, Math.random() * 3000 + 2000); // 2-5 saniye arasında rastgele bir süre sonra duracak
     }
 
     function addUserSentence() {
