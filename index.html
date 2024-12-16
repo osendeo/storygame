@@ -76,17 +76,27 @@
 
   <script>
     const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Gizemli", "Mutlu", "Üzgün", "Korkmuş"];
-    const startingSentence = "Bir sabah uyandığında, dünyada her şeyin değişmeye başladığını hissetti.";
+    const subjects = ["Kediler", "Köpekler", "Çocuklar", "Bilim insanları", "Astronotlar", "Müzisyenler", "Yazarlar", "Öğrenciler"];
+    const verbs = ["koşuyor", "uçuyor", "yüzüyor", "okuyor", "yazıyor", "çalışıyor", "dans ediyor", "şarkı söylüyor"];
+    const objects = ["parkta", "okulda", "evde", "uzayda", "denizde", "kütüphanede", "sahilde", "ormanda"];
 
-    // Kategorilerin sırasıyla dönmesini sağlamak
     let currentCategoryIndex = 0;
     let rotationInterval;
     let categorySelected = false;
 
+    // Rastgele bir başlangıç cümlesi oluştur
+    function getRandomStartingSentence() {
+      const subject = subjects[Math.floor(Math.random() * subjects.length)];
+      const verb = verbs[Math.floor(Math.random() * verbs.length)];
+      const object = objects[Math.floor(Math.random() * objects.length)];
+      return `${subject} ${verb} ${object}.`;
+    }
+
     function startCategoryRotation() {
       if (!categorySelected) {
-        // Başlangıç cümlesini gösterelim
-        document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${startingSentence}"</p>`;
+        // Başlangıç cümlesini rastgele gösterelim
+        const randomSentence = getRandomStartingSentence();
+        document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${randomSentence}"</p>`;
       }
 
       // Kategoriyi döndürmeye başla
