@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hikaye Oyunu - Çark</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
 
-    /* Çark stili */
     .wheel-container {
       position: relative;
-      width: 320px;
-      height: 320px;
+      width: 300px;
+      height: 300px;
       margin: auto;
     }
 
@@ -24,13 +27,19 @@
       top: 0;
       left: 0;
       background: conic-gradient(
-        #ff0000 0% 20%, #00ff00 20% 40%, #0000ff 40% 60%, #ffff00 60% 80%, #ff00ff 80% 100%
+        #ff0000 0% 12.5%, 
+        #00ff00 12.5% 25%, 
+        #0000ff 25% 37.5%, 
+        #ffff00 37.5% 50%, 
+        #ff00ff 50% 62.5%, 
+        #00ffff 62.5% 75%, 
+        #ff6600 75% 87.5%, 
+        #00cc00 87.5% 100%
       );
       transform-origin: 50% 50%;
       transition: transform 3s ease-out;
     }
 
-    /* Çark üzerindeki kategorilerin yerleşimi */
     .category {
       position: absolute;
       font-size: 16px;
@@ -40,16 +49,16 @@
       transform: translateX(-50%);
     }
 
-    .category:nth-child(1) { top: 10%; left: 25%; }
-    .category:nth-child(2) { top: 20%; left: 75%; }
+    /* Kategoriler için döndürme açıları */
+    .category:nth-child(1) { top: 10%; left: 50%; }
+    .category:nth-child(2) { top: 25%; left: 90%; }
     .category:nth-child(3) { top: 50%; left: 90%; }
-    .category:nth-child(4) { top: 80%; left: 75%; }
-    .category:nth-child(5) { top: 90%; left: 25%; }
-    .category:nth-child(6) { top: 80%; left: 5%; }
-    .category:nth-child(7) { top: 50%; left: 0%; }
-    .category:nth-child(8) { top: 20%; left: 5%; }
+    .category:nth-child(4) { top: 75%; left: 50%; }
+    .category:nth-child(5) { top: 90%; left: 10%; }
+    .category:nth-child(6) { top: 75%; left: 10%; }
+    .category:nth-child(7) { top: 50%; left: 10%; }
+    .category:nth-child(8) { top: 25%; left: 50%; }
 
-    /* Çarkın üzerindeki metinler */
     .wheel-text {
       position: absolute;
       top: 50%;
@@ -60,7 +69,6 @@
       font-weight: bold;
     }
 
-    /* Buton stili */
     .button {
       padding: 10px 20px;
       font-size: 18px;
@@ -68,11 +76,9 @@
       margin-top: 20px;
     }
 
-    /* Kategori ve Başlangıç Cümlesi */
     .category-display { font-size: 24px; font-weight: bold; margin-top: 20px; }
     .story { margin-top: 30px; font-size: 20px; }
 
-    /* Cümle girişi */
     .input-area { margin-top: 20px; }
     #user-sentence { width: 300px; font-size: 16px; padding: 10px; margin-top: 10px; }
   </style>
@@ -81,26 +87,21 @@
 
   <h1>Hikaye Oyunu</h1>
 
-  <!-- Çark -->
   <div class="wheel-container">
     <div class="wheel" id="wheel">
       <div class="wheel-text">Çarkı Çevir!</div>
     </div>
 
-    <!-- Kategoriler -->
     <div id="categories" class="category">
-      <!-- Kategoriler buraya yerleştirilecek -->
+      <!-- Kategoriler burada yer alacak -->
     </div>
   </div>
 
-  <!-- Buton -->
   <button class="button" onclick="spinWheel()">Çarkı Çevir</button>
 
-  <!-- Kategori ve Başlangıç Cümlesi -->
   <div class="category-display" id="category-display"></div>
   <div class="story" id="story"></div>
 
-  <!-- Cümle girişi -->
   <div class="input-area">
     <label for="user-sentence">Cümleniz: </label>
     <input type="text" id="user-sentence" placeholder="Buraya cümlenizi yazın..." />
@@ -118,53 +119,50 @@
       "Kalktım ve kapıyı açtım, ama dışarıda kimse yoktu, yalnızdım."
     ];
 
-    let isFirstSpin = true; // Çark ilk kez döndürüldü mü diye kontrol eder
+    let isFirstSpin = true; // İlk dönüş kontrolü
 
-    // Kategorileri çarkın üzerine yerleştirme
+    // Kategorileri çark üzerine yerleştirme
     function createCategories() {
       categories.forEach((category, index) => {
         const categoryElement = document.createElement("div");
         categoryElement.textContent = category;
         categoryElement.classList.add("category");
         const angle = (360 / categories.length) * index;
-        categoryElement.style.transform = `rotate(${angle}deg) translateY(-140px)`;
+        categoryElement.style.transform = `rotate(${angle}deg) translateY(-130px)`; // Kategorilerin konumlarını ayarladık
         document.getElementById("categories").appendChild(categoryElement);
       });
     }
 
     function spinWheel() {
-      // Çarkı döndürmek için rastgele bir açı belirleyelim
-      const randomDeg = Math.floor(Math.random() * 360) + 3600;  // 3600 derece ve sonrasını döndürelim
-      document.getElementById("wheel").style.transform = `rotate(${randomDeg}deg)`;
+      // Çarkı döndürmek için rastgele bir açı seçelim
+      const randomDeg = Math.floor(Math.random() * 360) + 3600; // 3600 dereceyi aşan dönüş
+      document.getElementById("wheel").style.transform = `rotate(${randomDeg}deg)`; // Çark döner
 
-      // Çarkın dönerken kategorilerin görünmemesi için süreyi ayarlayalım
+      // Çarkın durmasından sonra kategori gösterimi
       setTimeout(() => {
         const selectedCategoryIndex = Math.floor((randomDeg % 360) / (360 / categories.length));
         const selectedCategory = categories[selectedCategoryIndex];
         document.getElementById("category-display").innerText = `Kategori: ${selectedCategory}`;
-      }, 3000); // Çarkın dönüşü bitince kategori gösterilecek
+      }, 3000); // 3 saniye sonra kategori görünecek
 
       if (isFirstSpin) {
-        // İlk tıklamada rastgele bir başlangıç cümlesi seçilir
+        // İlk dönüşte rastgele başlangıç cümlesi
         const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
         document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${randomSentence}"</p>`;
-        
-        // İlk tıklamadan sonra bu kısım tekrar çalışmaz
-        isFirstSpin = false;
+        isFirstSpin = false; // İlk dönmeden sonra bu işlem bir daha yapılmaz
       }
     }
 
     function addUserSentence() {
-      // Oyuncunun yazdığı cümleyi al
+      // Kullanıcı cümlesini al
       const userSentence = document.getElementById("user-sentence").value;
 
       if (userSentence.trim() !== "") {
-        // Oyuncunun cümlesi için yeni bir paragraf oluştur
+        // Kullanıcı cümlesini ekleyelim
         const storyDiv = document.getElementById("story");
         const sentenceParagraph = document.createElement("p");
         sentenceParagraph.innerText = `"${userSentence}"`;
 
-        // Cümleyi hikayeye ekle
         storyDiv.appendChild(sentenceParagraph);
 
         // Giriş alanını temizle
@@ -174,7 +172,6 @@
       }
     }
 
-    // Sayfa yüklendiğinde kategoriler oluşturulsun
     window.onload = createCategories;
 
   </script>
