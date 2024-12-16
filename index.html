@@ -85,7 +85,7 @@
         clearInterval(rotationInterval);
         const randomCategoryIndex = Math.floor(Math.random() * categories.length);
         document.getElementById("category-display").innerText = `Seçilen Kategori: ${categories[randomCategoryIndex]}`;
-      }, Math.random() * 3000 + 2000); // 2-5 saniye arasında rastgele bir süre sonra duracak
+      }, Math.random() * 2000 + 1000); // 2-5 saniye arasında rastgele bir süre sonra duracak
     }
 
     function addUserSentence() {
