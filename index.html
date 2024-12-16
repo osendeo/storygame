@@ -31,16 +31,16 @@
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
       const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
 
-      // Create new paragraph elements for category and sentence
+      // Get the element where we want to display the text
       const storyDiv = document.getElementById("story");
 
+      // Create new paragraphs for the category and sentence
       const categoryParagraph = document.createElement("p");
       categoryParagraph.innerText = `Category: ${randomCategory}`;
-      
       const sentenceParagraph = document.createElement("p");
       sentenceParagraph.innerText = `Starting Sentence: "${randomSentence}"`;
 
-      // Append new elements to the story div without clearing previous content
+      // Append the new paragraphs to the story section
       storyDiv.appendChild(categoryParagraph);
       storyDiv.appendChild(sentenceParagraph);
     }
