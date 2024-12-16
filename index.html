@@ -64,7 +64,9 @@
   <button class="button" onclick="startCategoryRotation()">Kategori Seç</button>
 
   <div class="category-display" id="category-display"></div>
-  <div class="story" id="story"></div>
+  <div class="story" id="story">
+    <!-- Burada cümleler sırasıyla birikecek -->
+  </div>
 
   <div class="input-area">
     <label for="user-sentence">Cümleniz: </label>
@@ -106,8 +108,11 @@
         const sentenceParagraph = document.createElement("p");
         sentenceParagraph.innerText = `"${userSentence}"`;
 
+        // Yeni cümleyi önceki cümlelerin altına ekle
         storyDiv.appendChild(sentenceParagraph);
-        document.getElementById("user-sentence").value = "";  // Giriş alanını temizle
+
+        // Cümle yazma alanını temizle
+        document.getElementById("user-sentence").value = "";  
       } else {
         alert("Lütfen bir cümle girin.");
       }
