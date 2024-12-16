@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hikaye Oyunu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    #game-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    textarea {
+      width: 100%;
+      height: 50px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <h1>Hikaye Oyunu</h1>
+    <button id="spin-button">Kategori Seç</button>
+    <p id="category-display">Seçilen Kategori: -</p>
+    <textarea id="sentence-input" placeholder="Cümleni buraya yaz..."></textarea>
+    <button id="submit-button">Gönder</button>
+    <div id="story-container">
+      <h3>Hikaye:</h3>
+      <p id="story-display">Henüz bir hikaye yok.</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
