@@ -62,6 +62,7 @@
   <h1>Hikaye Oyunu</h1>
 
   <button class="button" onclick="startCategoryRotation()">Kategori Seç</button>
+  <button class="button" onclick="generateAISentence()">Yapay Zeka Cümlesi Oluştur</button>
 
   <div class="category-display" id="category-display"></div>
   <div class="story" id="story">
@@ -139,6 +140,32 @@
       } else {
         alert("Lütfen bir cümle girin.");
       }
+    }
+
+    function generateAISentence() {
+      const categoriesList = [
+        "İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Gizemli", "Mutlu", "Üzgün", "Korkmuş"
+      ];
+
+      const aiSentences = [
+        "Bir gölge kayboldu, ardında bir dünya bırakarak.",
+        "Denizin sesi, rüzgarın ardında kayboldu.",
+        "Bir yıldız, kara bir denizin üzerinde parladı, bilinmeyen bir yönü işaret ederek.",
+        "Bir rüzgar, eski zamanlardan gelen bir sırla içimi ürpertiyor.",
+        "Zaman bir anlığına durdu, her şeyin başlangıcını hissettim.",
+        "Bir düşünce, içimde yeni bir dünya kurarak kayboldu.",
+        "Gözlerimdeki karanlık, yıldızları bile utandıracak kadar derindi."
+      ];
+
+      // Rastgele cümle seç
+      const aiSentence = aiSentences[Math.floor(Math.random() * aiSentences.length)];
+
+      // Yapay zekanın oluşturduğu cümleyi hikayeye ekle
+      const storyDiv = document.getElementById("story");
+      const aiSentenceParagraph = document.createElement("p");
+      aiSentenceParagraph.innerText = `YZ: "${aiSentence}"`;
+
+      storyDiv.appendChild(aiSentenceParagraph);
     }
   </script>
 
