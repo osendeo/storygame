@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story Game</title>
+  <title>Hikaye Oyunu</title>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
     .button { padding: 10px 20px; font-size: 18px; cursor: pointer; margin-top: 20px; }
@@ -14,63 +14,67 @@
   </style>
 </head>
 <body>
-  <h1>Story Game</h1>
-  <button class="button" onclick="spinWheel()">Spin the Wheel</button>
+  <h1>Hikaye Oyunu</h1>
+  <button class="button" onclick="spinWheel()">Çarkı Çevir</button>
 
-  <!-- Display the Category and Starting Sentence -->
+  <!-- Kategori ve Başlangıç Cümlesini Göster -->
   <div class="category" id="category"></div>
   <div class="story" id="story"></div>
 
-  <!-- Area for the player to write their sentence -->
+  <!-- Oyuncunun Cümlesini Yazabileceği Alan -->
   <div class="input-area">
-    <label for="user-sentence">Your Sentence: </label>
-    <input type="text" id="user-sentence" placeholder="Write your sentence here..." />
-    <button class="button" onclick="addUserSentence()">Add Sentence</button>
+    <label for="user-sentence">Cümleniz: </label>
+    <input type="text" id="user-sentence" placeholder="Buraya cümlenizi yazın..." />
+    <button class="button" onclick="addUserSentence()">Cümleyi Ekle</button>
   </div>
 
   <script>
-    const categories = ["Optimistic", "Pessimistic", "Confused", "Excited"];
+    const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Komik"];
+    
+    // Başlangıç cümleleri rastgele seçilecek
     const startingSentences = [
-      "It was a bright sunny day when it all began.",
-      "Everything went wrong after I opened the mysterious box.",
-      "I never thought I would find myself in this situation.",
-      "The room was filled with a strange and eerie silence."
+      "O an her şey değişti, bir şeylerin başlaması gerekiyordu.",
+      "Gözleri önümdeki manzaraya odaklanmıştı, ama ne düşündüğünü anlayamıyordum.",
+      "Bir adım attım ve geçmişimden gelen o korkunç sesler tekrar duyuldu.",
+      "Yavaşça adımlarımı atarken, bir anda her şey durdu ve sessizlik her tarafı sardı.",
+      "Dışarıdaki rüzgar o kadar şiddetliydi ki, her şeyin devrilmeye başlayacağını hissedebiliyordum.",
+      "Kalktım ve kapıyı açtım, ama dışarıda kimse yoktu, yalnızdım."
     ];
 
-    let isFirstSpin = true; // Track if the Spin button is clicked for the first time
+    let isFirstSpin = true; // Çark ilk kez döndürüldü mü diye kontrol eder
 
     function spinWheel() {
-      // Always show a category (no need to check first time)
+      // Her zaman bir kategori gösterilir (ilk kez tıklanıp tıklanmadığına bakılmaz)
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-      document.getElementById("category").innerText = `Category: ${randomCategory}`;
+      document.getElementById("category").innerText = `Kategori: ${randomCategory}`;
 
       if (isFirstSpin) {
-        // Randomly select a starting sentence for the first click
+        // İlk tıklamada rastgele bir başlangıç cümlesi seçilir
         const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
-        document.getElementById("story").innerHTML = `<p><strong>Starting Sentence:</strong> "${randomSentence}"</p>`;
+        document.getElementById("story").innerHTML = `<p><strong>Başlangıç Cümlesi:</strong> "${randomSentence}"</p>`;
         
-        // Set isFirstSpin to false so that it doesn't repeat on subsequent clicks
+        // İlk tıklamadan sonra bu kısım tekrar çalışmaz
         isFirstSpin = false;
       }
     }
 
     function addUserSentence() {
-      // Get the user's sentence from the input field
+      // Oyuncunun yazdığı cümleyi al
       const userSentence = document.getElementById("user-sentence").value;
 
       if (userSentence.trim() !== "") {
-        // Create a new paragraph element to display the user's sentence
+        // Oyuncunun cümlesi için yeni bir paragraf oluştur
         const storyDiv = document.getElementById("story");
         const sentenceParagraph = document.createElement("p");
         sentenceParagraph.innerText = `"${userSentence}"`;
 
-        // Append the user's sentence to the story
+        // Cümleyi hikayeye ekle
         storyDiv.appendChild(sentenceParagraph);
 
-        // Clear the input field for the next sentence
+        // Giriş alanını temizle
         document.getElementById("user-sentence").value = "";
       } else {
-        alert("Please enter a sentence before adding it.");
+        alert("Lütfen bir cümle girin.");
       }
     }
   </script>
