@@ -33,7 +33,17 @@
 
       // Randomly select a starting sentence
       const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
-      document.getElementById("story").innerText = `Starting Sentence: "${randomSentence}"`;
+
+      // Add the category and sentence as separate paragraphs
+      const storyDiv = document.getElementById("story");
+      storyDiv.innerHTML = '';  // Clear previous story
+      const categoryParagraph = document.createElement("p");
+      categoryParagraph.innerText = `Category: ${randomCategory}`;
+      const sentenceParagraph = document.createElement("p");
+      sentenceParagraph.innerText = `Starting Sentence: "${randomSentence}"`;
+
+      storyDiv.appendChild(categoryParagraph);
+      storyDiv.appendChild(sentenceParagraph);
     }
   </script>
 </body>
