@@ -29,19 +29,18 @@
     function spinWheel() {
       // Randomly select a category
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-      document.getElementById("category").innerText = randomCategory;
-
-      // Randomly select a starting sentence
       const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
 
-      // Add the category and sentence as separate paragraphs
+      // Create new paragraph elements for category and sentence
       const storyDiv = document.getElementById("story");
-      storyDiv.innerHTML = '';  // Clear previous story
+
       const categoryParagraph = document.createElement("p");
       categoryParagraph.innerText = `Category: ${randomCategory}`;
+      
       const sentenceParagraph = document.createElement("p");
       sentenceParagraph.innerText = `Starting Sentence: "${randomSentence}"`;
 
+      // Append new elements to the story div without clearing previous content
       storyDiv.appendChild(categoryParagraph);
       storyDiv.appendChild(sentenceParagraph);
     }
