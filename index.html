@@ -3,25 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hikaye Oyunu</title>
+  <title>Hikaye Oyunu - Çark</title>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-    .button { padding: 10px 20px; font-size: 18px; cursor: pointer; margin-top: 20px; }
+
+    /* Çark stili */
+    .wheel {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 10px solid #333;
+      position: relative;
+      margin: 20px auto;
+      background: conic-gradient(#ff0000 0% 25%, #00ff00 25% 50%, #0000ff 50% 75%, #ffff00 75% 100%);
+      transform-origin: 50% 50%;
+      transition: transform 4s ease-out;
+    }
+
+    /* Çarkın üzerindeki metinler */
+    .wheel-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Buton stili */
+    .button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    /* Kategori ve Başlangıç Cümlesi */
     .category { font-size: 24px; font-weight: bold; margin-top: 20px; }
     .story { margin-top: 30px; font-size: 20px; }
+
+    /* Cümle girişi */
     .input-area { margin-top: 20px; }
     #user-sentence { width: 300px; font-size: 16px; padding: 10px; margin-top: 10px; }
   </style>
 </head>
 <body>
+
   <h1>Hikaye Oyunu</h1>
+
+  <!-- Çark -->
+  <div class="wheel" id="wheel">
+    <div class="wheel-text">Çarkı Çevir!</div>
+  </div>
+
+  <!-- Buton -->
   <button class="button" onclick="spinWheel()">Çarkı Çevir</button>
 
-  <!-- Kategori ve Başlangıç Cümlesini Göster -->
+  <!-- Kategori ve Başlangıç Cümlesi -->
   <div class="category" id="category"></div>
   <div class="story" id="story"></div>
 
-  <!-- Oyuncunun Cümlesini Yazabileceği Alan -->
+  <!-- Cümle girişi -->
   <div class="input-area">
     <label for="user-sentence">Cümleniz: </label>
     <input type="text" id="user-sentence" placeholder="Buraya cümlenizi yazın..." />
@@ -29,9 +72,7 @@
   </div>
 
   <script>
-    const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı", "Komik"];
-    
-    // Başlangıç cümleleri rastgele seçilecek
+    const categories = ["İyimser", "Karamsar", "Şaşkın", "Heyecanlı"];
     const startingSentences = [
       "O an her şey değişti, bir şeylerin başlaması gerekiyordu.",
       "Gözleri önümdeki manzaraya odaklanmıştı, ama ne düşündüğünü anlayamıyordum.",
@@ -44,7 +85,11 @@
     let isFirstSpin = true; // Çark ilk kez döndürüldü mü diye kontrol eder
 
     function spinWheel() {
-      // Her zaman bir kategori gösterilir (ilk kez tıklanıp tıklanmadığına bakılmaz)
+      // Çarkı döndürmek için rastgele bir açı belirleyelim
+      const randomDeg = Math.floor(Math.random() * 360) + 3600;  // 3600 derece ve sonrasını döndürelim
+      document.getElementById("wheel").style.transform = `rotate(${randomDeg}deg)`;
+
+      // Kategori göster
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
       document.getElementById("category").innerText = `Kategori: ${randomCategory}`;
 
@@ -78,5 +123,6 @@
       }
     }
   </script>
+
 </body>
 </html>
