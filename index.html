@@ -3,40 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hikaye Oyunu</title>
+  <title>Story Game</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 20px;
-    }
-    #game-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    textarea {
-      width: 100%;
-      height: 50px;
-      margin: 10px 0;
-    }
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    .button { padding: 10px 20px; font-size: 18px; cursor: pointer; margin-top: 20px; }
+    .category { font-size: 24px; font-weight: bold; margin-top: 20px; }
+    .story { margin-top: 30px; font-size: 20px; }
   </style>
 </head>
 <body>
-  <div id="game-container">
-    <h1>Hikaye Oyunu</h1>
-    <button id="spin-button">Kategori Seç</button>
-    <p id="category-display">Seçilen Kategori: -</p>
-    <textarea id="sentence-input" placeholder="Cümleni buraya yaz..."></textarea>
-    <button id="submit-button">Gönder</button>
-    <div id="story-container">
-      <h3>Hikaye:</h3>
-      <p id="story-display">Henüz bir hikaye yok.</p>
-    </div>
-  </div>
-  <script src="script.js"></script>
+  <h1>Story Game</h1>
+  <button class="button" onclick="spinWheel()">Spin the Wheel</button>
+  <p class="category">Category: <span id="category"></span></p>
+  <div class="story" id="story"></div>
+
+  <script>
+    const categories = ["Optimistic", "Pessimistic", "Confused", "Excited"];
+    const startingSentences = [
+      "It was a bright sunny day when it all began.",
+      "Everything went wrong after I opened the mysterious box.",
+      "I never thought I would find myself in this situation.",
+      "The room was filled with a strange and eerie silence."
+    ];
+
+    function spinWheel() {
+      // Randomly select a category
+      const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+      document.getElementById("category").innerText = randomCategory;
+
+      // Randomly select a starting sentence
+      const randomSentence = startingSentences[Math.floor(Math.random() * startingSentences.length)];
+      document.getElementById("story").innerText = `Starting Sentence: "${randomSentence}"`;
+    }
+  </script>
 </body>
 </html>
