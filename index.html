@@ -9,6 +9,8 @@
       font-family: Arial, sans-serif;
       text-align: center;
       margin-top: 50px;
+      background-color: #f9f9a3; /* Göz yormayan sarı arka plan */
+      color: #333;
     }
 
     .category-container {
@@ -44,6 +46,14 @@
       font-size: 18px;
       cursor: pointer;
       margin-top: 20px;
+      background-color: red; /* Butonları kırmızı yap */
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .button:hover {
+      background-color: darkred;
     }
   </style>
 </head>
@@ -78,14 +88,14 @@
       rotationInterval = setInterval(() => {
         document.getElementById("category-display").innerText = categories[currentCategoryIndex];
         currentCategoryIndex = (currentCategoryIndex + 1) % categories.length;
-      }, 100); // Her 0.3 saniyede bir kategori değişecek
+      }, 100); // Her 0.1 saniyede bir kategori değişecek
 
       // Duracak rastgele bir nokta
       setTimeout(() => {
         clearInterval(rotationInterval);
         const randomCategoryIndex = Math.floor(Math.random() * categories.length);
         document.getElementById("category-display").innerText = `Seçilen Kategori: ${categories[randomCategoryIndex]}`;
-      }, Math.random() * 2000 + 1000); // 2-5 saniye arasında rastgele bir süre sonra duracak
+      }, Math.random() * 1000 + 2000); // 2-3 saniye arasında rastgele bir süre sonra duracak
     }
 
     function addUserSentence() {
