@@ -19,21 +19,25 @@
         #ff0000 0% 25%, #00ff00 25% 50%, #0000ff 50% 75%, #ffff00 75% 100%
       );
       transform-origin: 50% 50%;
-      transition: transform 4s ease-out;
+      transition: transform 2s ease-out;
     }
 
-    /* Kategorilerin çark üzerindeki yerleşimi */
+    /* Çark üzerindeki kategorilerin yerleşimi */
     .category {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       color: white;
       text-align: center;
       width: 100%;
+      top: 10%;  /* Kategori yüksekliğini ayarlamak için */
     }
+
+    .category:nth-child(1) { left: 10%; }
+    .category:nth-child(2) { left: 30%; }
+    .category:nth-child(3) { left: 50%; }
+    .category:nth-child(4) { left: 70%; }
+    .category:nth-child(5) { left: 90%; }
 
     /* Çarkın üzerindeki metinler */
     .wheel-text {
@@ -105,15 +109,12 @@
       const randomDeg = Math.floor(Math.random() * 360) + 3600;  // 3600 derece ve sonrasını döndürelim
       document.getElementById("wheel").style.transform = `rotate(${randomDeg}deg)`;
 
-      // Kategoriler gizlenir
-      document.getElementById("category-wheel").innerText = "";
-
       // Çarkın dönerken kategorilerin görünmemesi için süreyi ayarlayalım
       setTimeout(() => {
         const randomCategory = categories[Math.floor(Math.random() * categories.length)];
         document.getElementById("category-wheel").innerText = randomCategory;
         document.getElementById("category-display").innerText = `Kategori: ${randomCategory}`;
-      }, 4000); // Çarkın dönüşü bitince kategori gösterilecek
+      }, 2000); // Çarkın dönüşü bitince kategori gösterilecek
 
       if (isFirstSpin) {
         // İlk tıklamada rastgele bir başlangıç cümlesi seçilir
